@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Jak spartycjonować i sformatować dysk twardy w Linuxie"
+title: "Jak spartycjonować i sformatować dysk twardy na Linuxie"
 tag: linux debian
 date: 2021-01-22
 ---
