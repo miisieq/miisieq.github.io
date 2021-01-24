@@ -1,12 +1,9 @@
 ---
-layout: default
+layout: post
 title: "Jak spartycjonować i sformatować dysk twardy w Linuxie"
 tag: linux debian
+date: 2021-01-22
 ---
-
-# Jak spartycjonować i sformatować dysk twardy w Linuxie
-
-## Wstęp
 
 Formatowanie nowego dysku w przypadku korzystania ze środowiska graficznego jest bardzo intuicyjne. Jednak się komplikuje w przypadku wykonania tej czynności tylko za pomocą powłoki systemowej. W poniższym wpisie pokażę dodać partycję, sformatować ją i zamontować na nowo zakupionym dysku twardym. Do demonstracji użyjemy systemu operacyjnego Debian 10 (Buster) Server.
 
@@ -27,7 +24,7 @@ sdc      8:32   1  28,7G  0 disk
 
 Na pierwszy rzut oka widzimy, że urządzenia *sda* oraz *sdc* posiadają partycje, więc wiemy, że interesuje nasz nowy dysk, który nie ma partycji i jest oznaczony identyfikatorem *sdb*.
 
-### Krok 1: Partycjonowanie
+## Krok 1: Partycjonowanie
 
 Gdy już znamy identyfikator dysku, możemy przystąpić do partycjonowania.
 
@@ -62,7 +59,7 @@ Wywoływanie ioctl() w celu ponownego odczytu tablicy partycji.
 Synchronizacja dysków.
 ```
 
-### Krok 2: Formatowanie
+## Krok 2: Formatowanie
 
 Aby sformatować partycję do formatu ext4 używamy narzędzia [mkfs](https://linux.die.net/man/8/mkfs.ext4).
 
@@ -83,14 +80,14 @@ Creating journal (262144 blocks): done
 Writing superblocks and filesystem accounting information: done
 ```
 
-### Krok 3: Montowanie partycji
+## Krok 3: Montowanie partycji
 
 ```shell
 # mkdir /mnt/backup
 # mount /dev/sdb1 /mnt/backup
 ```
 
-### Krok 4: Automatyczne montowanie partycji
+## Krok 4: Automatyczne montowanie partycji
 
 Aby partycja była automatycznie montowana w systemie, powinniśmy najpierw ustalić jej UUID. W tym celu znowu użyjemy narzędzia [lsblk](https://man7.org/linux/man-pages/man8/lsblk.8.html), ale tym razem z dodatkowym parametrem:
 ```shell
@@ -109,7 +106,7 @@ i na końcu pliku dodajemy poniższą linię:
 UUID=6c819f03-bfe3-45e6-b5a8-fc659295c20e	/mnt/backup	ext4	defaults	0	0
 ```
 
-### Krok 5: Restart systemu (opcjonalny)
+## Krok 5: Restart systemu (opcjonalny)
 Na koniec możemy zrestartować system, aby upewnić się, że konfiguracja jest poprawna, a nowo dodana partycja poprawnie się zamontuje.
 
 W celu bezpiecznego restartu systemu użyjemy narzędzia [shutdown](https://linux.die.net/man/8/shutdown):
