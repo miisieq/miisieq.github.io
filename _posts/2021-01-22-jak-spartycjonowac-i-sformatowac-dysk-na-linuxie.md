@@ -13,7 +13,7 @@ Formatowanie nowego dysku w przypadku korzystania ze środowiska graficznego jes
 ## Identyfikator dysku
 W celu ustalenia identyfikatora dysku, który chcemy sformatować, uzyjemy narzędzia [lsblk](https://man7.org/linux/man-pages/man8/lsblk.8.html), które wypisuje urządzenia blokowe.
 
-```bash
+```shell
 $ lsblk
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
 sda      8:0    0 465,8G  0 disk
@@ -36,7 +36,7 @@ Gdy już znamy identyfikator dysku, możemy przystąpić do partycjonowania.
 1. Na wszystkie pytania odpowiadamy domyślną wartością, czyli wciskamy *ENTER*.
 1. Aby zapisać zmiany w tablicy partycji, wciskamy *w*.
 
-```bash
+```shell
 # fdisk /dev/sdb
 Witamy w programie fdisk (util-linux 2.33.1).
 Zmiany pozostaną tylko w pamięci do chwili ich zapisania.
@@ -66,7 +66,7 @@ Synchronizacja dysków.
 
 Aby sformatować partycję do formatu ext4 używamy narzędzia [mkfs](https://linux.die.net/man/8/mkfs.ext4).
 
-```bash
+```shell
 # mkfs.ext4 /dev/sdb1
 mke2fs 1.44.5 (15-Dec-2018)
 Discarding device blocks: done
@@ -85,7 +85,7 @@ Writing superblocks and filesystem accounting information: done
 
 ### Krok 3: Montowanie partycji
 
-```bash
+```shell
 # mkdir /mnt/backup
 # mount /dev/sdb1 /mnt/backup
 ```
@@ -93,19 +93,19 @@ Writing superblocks and filesystem accounting information: done
 ### Krok 4: Automatyczne montowanie partycji
 
 Aby partycja była automatycznie montowana w systemie, powinniśmy najpierw ustalić jej UUID. W tym celu znowu użyjemy narzędzia [lsblk](https://man7.org/linux/man-pages/man8/lsblk.8.html), ale tym razem z dodatkowym parametrem:
-```bash
+```shell
 # lsblk -f /dev/sdb1
 NAME FSTYPE LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINT
 sdb1 ext4         6c819f03-bfe3-45e6-b5a8-fc659295c20e  890,1G     0% /mnt/backup
 ```
 
 Gdy już ustalilismy UUID, otwieramy plik do edycji:
-```bash
+```shell
 # vim /etc/fstab
 ```
 
 i na końcu pliku dodajemy poniższą linię:
-```bash
+```shell
 UUID=6c819f03-bfe3-45e6-b5a8-fc659295c20e	/mnt/backup	ext4	defaults	0	0
 ```
 
@@ -113,6 +113,6 @@ UUID=6c819f03-bfe3-45e6-b5a8-fc659295c20e	/mnt/backup	ext4	defaults	0	0
 Na koniec możemy zrestartować system, aby upewnić się, że konfiguracja jest poprawna, a nowo dodana partycja poprawnie się zamontuje.
 
 W celu bezpiecznego restartu systemu użyjemy narzędzia [shutdown](https://linux.die.net/man/8/shutdown):
-```bash
+```shell
 # shutdown -R
 ```
