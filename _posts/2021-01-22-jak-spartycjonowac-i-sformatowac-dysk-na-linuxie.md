@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Jak spartycjonować i sformatować dysk twardy w Linuxie"
+tag: linux debian
 ---
 
 # Jak spartycjonować i sformatować dysk twardy w Linuxie
@@ -84,7 +85,7 @@ Writing superblocks and filesystem accounting information: done
 
 ### Krok 3: Montowanie partycji
 
-```
+```bash
 # mkdir /mnt/backup
 # mount /dev/sdb1 /mnt/backup
 ```
@@ -104,7 +105,7 @@ Gdy już ustalilismy UUID, otwieramy plik do edycji:
 ```
 
 i na końcu pliku dodajemy poniższą linię:
-```
+```bash
 UUID=6c819f03-bfe3-45e6-b5a8-fc659295c20e	/mnt/backup	ext4	defaults	0	0
 ```
 

@@ -1,4 +1,12 @@
-theme: jekyll-theme-architect
+theme: minima
+
+minima:
+  date_format: "%-d %m %Y"
 
 title: miisieq.github.io
-description: A short description of your site's purpose
+description: Programowanie (PHP, Python, Bash), bazy danych, Linux
+github_username:  miisieq
+
+exclude:
+  - .idea
+  - vendor
